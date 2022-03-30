@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Snap Sudoku</title>
+        <title>Sudoku Solver</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../static/css/style.css">
@@ -12,17 +12,20 @@
 
     <body>
         <center>
-            <h1>Snap Sudoku</h1>
-            <p>Submit a picture of a Sudoku and have Sudoku-Solver solve it for you!</p>
+            <h1>Sudoku Solver</h1>
+            <p>Submit a picture of a Sudoku and have Sudoku Solver solve it for you!</p>
             <form name="inputForm" id="inputForm" method="POST" action="/solution" enctype="multipart/form-data">
                 <label for="file">Select an image:</label>
                 <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png">
                 <p></p>
                 <button name="submitButton" id="submitButton" type="submit" onclick="submit()">Solve Puzzle!</button>
             </form>
-            {% if result %}
+            {% if error %}
+            <h2>Error</h2>
+            <p>{{ error }} Please try again with a different image.</p>
+            {% elif solution %}
             <h2>Solution</h2>
-            <img src="/static/images/input_solved.jpg">
+            <img src={{ solution }}>
             {% endif %}
         </center>
 
