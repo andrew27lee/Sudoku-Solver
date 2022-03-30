@@ -1,0 +1,42 @@
+openapi: '3.0.2'
+info:
+  title: Sudoku-Solver Ainize API Swagger
+  description: Sudoku-Solver Ainize API Documentation
+  version: '1.0'
+  contact:
+    name: Ainizer - Andrew Lee
+    email: andrew.lee@comcom.ai
+
+servers:
+  - url: https://main-sudoku-solver-andrew27lee.endpoint.ainize.ai
+
+paths:
+  /:
+    post:
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+            encoding:
+              file:
+                contentType: image/jpg, image/jpeg, image/png
+      responses:
+        '200':
+          description: success
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Client Error
+        '404':
+          description: Model Not Found
+        '500':
+          description: Server Error

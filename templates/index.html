@@ -13,8 +13,8 @@
     <body>
         <center>
             <h1>Snap Sudoku</h1>
-            <p>Take a picture of a Sudoku and have SnapSudoku solve it for you!</p>
-            <form name="inputForm" id="inputForm" method="POST" action="" enctype="multipart/form-data">
+            <p>Submit a picture of a Sudoku and have Sudoku-Solver solve it for you!</p>
+            <form name="inputForm" id="inputForm" method="POST" action="/solution" enctype="multipart/form-data">
                 <label for="file">Select an image:</label>
                 <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png">
                 <p></p>
@@ -22,7 +22,7 @@
             </form>
             {% if result %}
             <h2>Solution</h2>
-            <img src="{{ result }}" alt="solution">
+            <img src="/static/images/input_solved.jpg">
             {% endif %}
         </center>
 

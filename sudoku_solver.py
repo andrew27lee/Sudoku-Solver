@@ -1,7 +1,7 @@
 import os
 import sys
 
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, Response, render_template
 from tensorflow.keras.models import load_model
 from src.settings import *
 from src.extract_n_solve.extract_digits import process_extract_digits
@@ -11,6 +11,8 @@ from src.extract_n_solve.new_img_generator import *
 from src.useful_functions import my_resize
 
 app = Flask(__name__)
+image_format = {"image/jpg", "image/jpeg", "image/png"}
+input_file_path = 'static/images/input.jpg'
 
 
 def main_process(im_path):
@@ -38,22 +40,21 @@ def main_process(im_path):
     cv2.imwrite('static/images/' + os.path.splitext(os.path.basename(im_path))[0] + "_solved.jpg", im_final)
 
 
-@app.route('/images_save/<path>', methods=['GET'])
-def __send_file(path):
-    return send_file('images_save/'+path)
-
-
-@app.route('/', methods=['GET', 'POST'])
-def solve():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            return render_template('index.html', result='No file')
+@app.route('/solution', methods=['POST'])
+def solution():
+    try:
         input_file = request.files['file']
-        if input_file.filename == '':
-            return render_template('index.html', result='No file selected. Please try again.')
-        input_file.save(os.path.join(app.root_path, 'static/images/input.jpg'))
-        main_process('static/images/input.jpg')
-        return render_template('index.html', result='static/images/input_solved.jpg')
+    except:
+        return Response('No file selected', status=400)
+ 
+    input_file.save(os.path.join(app.root_path, input_file_path))
+    main_process(input_file_path)
+
+    return render_template('index.html', result=True)
+
+
+@app.route('/', methods=['GET'])
+def main():
     return render_template('index.html')
 
 
