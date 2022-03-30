@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Snap Sudoku</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/css/style.css">
+    </head>
+
+    <body>
+        <center>
+            <h1>Snap Sudoku</h1>
+            <p>Take a picture of a Sudoku and have SnapSudoku solve it for you!</p>
+            <form name="inputForm" id="inputForm" method="POST" action="" enctype="multipart/form-data">
+                <label for="file">Select an image:</label>
+                <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png">
+                <p></p>
+                <button name="submitButton" id="submitButton" type="submit" onclick="submit()">Solve Puzzle!</button>
+            </form>
+            {% if result %}
+            <h2>Solution</h2>
+            <img src="{{ result }}" alt="solution">
+            {% endif %}
+        </center>
+
+        <script>
+            $("#inputForm").submit(function (){
+                document.getElementById("inputForm").submit();
+            });
+            function submit(){
+                document.getElementById("inputForm").submit();
+            }
+        </script>
+    </body>
+</html>
