@@ -1,5 +1,4 @@
 import os
-import sys
 
 from flask import Flask, request, Response, render_template
 from tensorflow.keras.models import load_model
@@ -11,7 +10,8 @@ from src.extract_n_solve.new_img_generator import *
 from src.useful_functions import my_resize
 
 app = Flask(__name__)
-input_file_path = 'static/images/input.jpg'
+UPLOAD_FOLDER = 'static/images/input.jpg'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 
 def main_process(im_path):
@@ -38,12 +38,23 @@ def main_process(im_path):
 @app.route('/solution', methods=['POST'])
 def solution():
     error = None
+
+    if 'file' not in request.files:
+        print('no file')
+        return render_template('index.html', error='No file')
+
     input_file = request.files['file']
+
     if input_file.filename == '':
         return render_template('index.html', error='No file selected.')
-    input_file.save(os.path.join(app.root_path, input_file_path))
-    error = main_process(input_file_path)
-    return render_template('index.html', solution='static/images/input_solved.jpg', error=error)
+
+    input_file.save(os.path.join(app.root_path, UPLOAD_FOLDER))
+    error = main_process(UPLOAD_FOLDER)
+
+    if error == None:
+        return render_template('index.html', solution='static/images/input_solved.jpg')
+    else:
+        return render_template('index.html', error=error)
 
 
 @app.route('/', methods=['GET'])

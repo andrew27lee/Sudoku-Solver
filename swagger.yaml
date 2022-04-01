@@ -1,8 +1,9 @@
 openapi: '3.0.2'
+
 info:
-  title: Sudoku-Solver Ainize API Swagger
-  description: Sudoku-Solver Ainize API Documentation
-  version: '1.0'
+  title: Sudoku-Solver API Swagger
+  description: Sudoku-Solver API Documentation
+  version: '1.1'
   contact:
     name: Ainizer - Andrew Lee
     email: andrew.lee@comcom.ai
@@ -11,7 +12,7 @@ servers:
   - url: https://main-sudoku-solver-andrew27lee.endpoint.ainize.ai
 
 paths:
-  /:
+  /solution:
     post:
       requestBody:
         required: true

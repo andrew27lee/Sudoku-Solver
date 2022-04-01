@@ -20,12 +20,12 @@
                 <p></p>
                 <button name="submitButton" id="submitButton" type="submit" onclick="submit()">Solve Puzzle!</button>
             </form>
-            {% if error %}
-            <h2>Error</h2>
-            <p>{{ error }} Please try again with a different image.</p>
-            {% elif solution %}
+            {% if solution %}
             <h2>Solution</h2>
             <img src={{ solution }}>
+            {% elif error %}
+            <h2>Error</h2>
+            <p>{{ error }} Please try again with a different image.</p>
             {% endif %}
         </center>
 
