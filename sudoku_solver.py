@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, render_template
 from tensorflow.keras.models import load_model
 from src.settings import *
 from src.extract_n_solve.extract_digits import process_extract_digits
@@ -11,7 +11,6 @@ from src.useful_functions import my_resize
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/images/input.jpg'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 
 def main_process(im_path):
